@@ -1,27 +1,144 @@
 body{
-    background-color: thistle;
+    background-color: black;
     margin: 0%;
 }
 h1{
-    font-size: 3.5rem;
-    margin-left: 35%;
+    font-size: 2.5rem;
+    color: whitesmoke;
+    margin: 0px 30px;
+    font-weight: 800;
 }
+
+h2{
+    margin-left: 30px;
+    font-weight: 600;
+}
+
 table{
+    
     margin: 10%;
     width: 300px;
     height: 300px;
+    
 }
+/* grill */
 td{
     width: 80px;
     height: 80px;
 }
 img{
+    position: relative;
     padding-left: 15px;
+    
 }
+
+/* Title */
+#title{
+    position: absolute;
+    margin-left: 50%;
+    /* height: 450px; */
+}
+.title{
+    display: inline-block;
+    margin-top: 60px;
+}
+/* .h1_title{
+    display: inline-block;
+} */
+.img_title{
+    display: inline-block;
+    position: relative;
+    width: 60px;
+    height: 60px;
+    margin-left: 22%;
+}
+
+.im1{
+    margin-left: 90px;
+}
+.im2{
+    margin-left: 1px;
+}
+.im3{
+    margin-left: 80px;
+}
+
+.winner_title{
+    z-index: 3;
+    width: 450px;
+    height: 300px;
+    font-size: 2.5rem;
+    background-color: rgb(36, 35, 35);
+    color: whitesmoke;
+    margin: 80px 50px;
+    font-weight: 800;
+}
+/* Blackboard image background */
+.blackboard{
+    width: 650px;
+    height: 650px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: -1;
+}
+/* "X" and "O" images in the Blackboard */
+.image_game {
+    width: 60px;
+    height: 60px;
+}
+/* <td> where the "X" and "O" are display */
 .g1,.g2,.g3,.g4,.g5,.g6{
-    border-bottom: 3px solid;
+    border-bottom: 3px white solid;
+    
   
 }
 .g1, .g2, .g4, .g5, .g7, .g8 {
-    border-right: 3px solid;
+    border-right: 3px white solid;
+}
+/* -------- */
+/* image of the game title */
+.image_title{
+    margin-left: 20px;
+    margin-top: -30px;
+    /* width: 500px;
+    height: 460px; */
+}
+
+/* To display 'restart' button */
+.disp{
+    position: absolute;
+    margin-left: 180px ;
+    margin-top: 80px;
+    z-index: 3;
+    background-color: black;
+    color: aliceblue;
+    width: 200px;
+    height: 150px;
+    border: 3px aliceblue solid;
+    border-radius: 10%;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    text-align: center;
+}
+
+
+@media only screen and (max-width:600px){
+    #title{
+        margin-left: 65%;
+        margin-top: -5%;
+    }
+    .title{
+        width: 20px;
+        height: 20px;
+        margin-right: 25%;
+    }
+    .img_title{
+        margin-left: 220%;
+    }
+    .off{
+        display: none;
+    }
+    
 }

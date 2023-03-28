@@ -1,96 +1,92 @@
-// var title = document.querySelector('h1').innerText='Hello';
-// Image variable from the image file 
-var o = 'assets/images/o.png';
-var x = 'assets/images/close.png';
-// Convertion of the image to <img> for the .innerHTML
-var imgx = '<img src='+x+'>';
-var imgo = '<img src='+o+'>';
-// var image = document.querySelector('#g1').innerHTML=imgx;
-// var image1 = document.querySelector('#g2').innerHTML=imgo;
-// var image2 = document.querySelector('#g4').innerHTML=imgx;
+// Variables for the images
+var oImage = 'assets/images/image_o.png';
+var xImage = 'assets/images/image_x.png';
 
-// wining lists
-var computerNumbers = [];
-var win1 = [];
-var win2 = [];
-var win3 = [];
-var win4 = [];
-var win5 = [];
-var win6 = [];
-var win7 = [];
-var win9 = [];
+// Conversion of the image to <img> for the .innerHTML
+var imgx = '<img class="image_game" src=' + xImage + '>';
+var imgo = '<img class="image_game" src=' + oImage + '>';
 
+// Arrays to keep track of clicked boxes
+var clickedBoxes = [];
+var playerBoxes = [];
+var computerBoxes = [];
 
-
-// function for when the player click o one of the <td> will render the"X" image inside the tag
-function player(id){
-    var n = document.querySelector('#g'+id).innerHTML;
-    console.log("n value: ", n);
-    UserClickCheck(n);
-    computerNumbers.push(Number(id));
-    // checkBox(id);
-    var tdId = document.querySelector('#g'+id).innerHTML=imgx;
-    // console.log(tdId);
-    // delay of 3 seconds to have the result from the computer as player
-    setTimeout(computer, 2000 );
-    // computer();
-    // document.querySelector('#g1').innerHTML=imgx; 
-}
-// funtion that recreate the computer as player, through a random number
-function computer(){
-    console.log(computerNumbers);
-    var play = Math.floor(Math.random()*9 + 1);
-    console.log(play);
-    if (computerNumbers.length === 9){
-        var n = document.querySelector('h1').innerHTML='Finish';
-    }else if(computerNumbers.includes(play)){
-        
-        computer();
-        computerClickCheck(play);
-    }else {
-        
-        
-    // checkBox(play);
-        var equis = document.querySelector('#g'+play).innerHTML=imgo;
-        console.log(typeof(equis))
-        computerNumbers.push(play);
-}
-}
-// this funtion takes the id of the clicked <td> and push the id into a list.
-function checkBox(n){
-    if (n <=3){
-        win1.push(n);
-        // console.log(win1);
-    }else if(n <= 6 && n > 3){
-        win2.push(n);
-        // console.log(win2);
-    }else if(n <= 9 && n > 6){
-        win3.push(n);
-        // console.log(win3);
+// Function for when the player clicks on a box
+function player(id) {
+  var boxId = Number(id);
+  // Check if box is already clicked
+  if (clickedBoxes.includes(boxId)) {
+    alert('Select another box');
+  } else {
+    // Add box to clicked boxes array
+    clickedBoxes.push(boxId);
+    playerBoxes.push(boxId);
+    // Update box with player's image
+    document.querySelector('#g' + boxId).innerHTML = imgx;
+    // Check if player has won
+    if (checkWinner(playerBoxes, 'Player')) {
+      endGame('Player');
+      return true;
     }
-    // console.log(win1);
+    // Call computer's turn after a delay
+    setTimeout(computerTurn, 1000);
+  }
 }
 
-// function to check if the <td> as been aready clicked
-// For the player user    // 
-function UserClickCheck(n) {
-    console.log(" in clickCheck n value: ", n);
-    if('<img src="assets/images/o.png">' === n || '<img src="assets/images/close.png">' ===  n ){
-        // alert('this box is alredy clicked');
-        player(id);
-    }else{ 
-        console.log(n);
-    }
-}
-// For the computer 
-function computerClickCheck(id) {
-    var n = document.querySelector('#g'+id).innerHTML;
-    console.log(" in clickCheck n value: ", n);
-    if('<img src="assets/images/o.png">' === n || '<img src="assets/images/close.png">' ===  n ){
-        // alert('this box is alredy clicked');
-        computer();
-    }else{ 
-        console.log(n);
-    }
+// Function to simulate the computer's turn
+function computerTurn() {
+  // Check if all boxes are clicked
+  if (clickedBoxes.length === 9) {
+    endGame('Draw');
+    return true;
+  }
+  // Choose a random box
+  var boxId;
+  do {
+    boxId = Math.floor(Math.random() * 9 + 1);
+  } while (clickedBoxes.includes(boxId));
+  // Add box to clicked boxes array
+  clickedBoxes.push(boxId);
+  computerBoxes.push(boxId);
+  // Update box with computer's image
+  document.querySelector('#g' + boxId).innerHTML = imgo;
+  // Check if computer has won
+  if (checkWinner(computerBoxes, 'Computer')) {
+    endGame('Computer');
+    return true;
+  }
 }
 
+// Function to check if a player has won
+function checkWinner(boxes, player) {
+  if (boxes.includes(1) && boxes.includes(2) && boxes.includes(3) ||
+      boxes.includes(4) && boxes.includes(5) && boxes.includes(6) ||
+      boxes.includes(7) && boxes.includes(8) && boxes.includes(9) ||
+      boxes.includes(1) && boxes.includes(4) && boxes.includes(7) ||
+      boxes.includes(2) && boxes.includes(5) && boxes.includes(8) ||
+      boxes.includes(3) && boxes.includes(6) && boxes.includes(9) ||
+      boxes.includes(1) && boxes.includes(5) && boxes.includes(9) ||
+      boxes.includes(3) && boxes.includes(5) && boxes.includes(7)) {
+    console.log('Winner: ' + player);
+    return true;
+  }
+  return false;
+}
+
+// Function to end the game and display the winner
+function endGame(winner) {
+  console.log('Game Over. Winner: ' + winner);
+  
+  document.querySelector('#winner').innerHTML = '<div class="winner_title"><h2><strong>GAME OVER</strong></h2><h2>Winner: ' + winner+'</h2>';
+  document.querySelector('.replay').innerHTML= '<button type="button" class="disp" onClick="window.location.reload()">Restart the Game</button>'
+  // Disable all remaining boxes
+  for (var i = 1; i <= 9; i++) {
+    if (!clickedBoxes.includes(i)) {
+      document.querySelector('#g' + i).setAttribute('onclick', '');
+    }
+  }
+}
+
+
+  
+  // console.log(div);
