@@ -77,7 +77,7 @@ function checkWinner(boxes, player) {
 function endGame(winner) {
   console.log('Game Over. Winner: ' + winner);
   
-  document.querySelector('#winner').innerHTML = '<div class="winner_title"><h2><strong>GAME OVER</strong></h2><h2>Winner: ' + winner+'</h2>';
+  document.querySelector('.container').innerHTML = '<div class="winner_title"><h2><strong>GAME OVER</strong></h2><h2>Winner: ' + winner+'</h2>';
   document.querySelector('.replay').innerHTML= '<button type="button" class="disp" onClick="window.location.reload()">Restart the Game</button>'
   // Disable all remaining boxes
   for (var i = 1; i <= 9; i++) {
